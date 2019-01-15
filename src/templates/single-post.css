@@ -1,0 +1,24 @@
+.single-post {
+    margin: 30px 0;
+}
+
+.single-post .post {
+    margin: 20px 0;
+}
+
+.single-post .post-title {
+    margin: 0 0 20px;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.single-post .post-title a {
+    color: #000;
+    text-decoration: none;
+}
+
+.single-post .post-meta {
+    margin: 0 0 30px;
+    font-size: 0.8em;
+    font-style: italic;
+}

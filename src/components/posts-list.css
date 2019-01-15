@@ -1,0 +1,24 @@
+.posts-list {
+    margin: 30px 0;
+}
+
+.posts-list .post {
+    margin: 20px 0;
+}
+
+.posts-list .post-title {
+    margin: 0 0 20px;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.posts-list .post-title a {
+    color: #000;
+    text-decoration: none;
+}
+
+.posts-list .post-meta {
+    margin: 0 0 20px;
+    font-size: 0.8em;
+    font-style: italic;
+}
