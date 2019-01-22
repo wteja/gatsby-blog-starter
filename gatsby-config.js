@@ -2,6 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Weerayut Teja`,
     description: `Fullstack Developer, Invester and Father.`,
+    siteDomain: "WTEJA.COM",
     author: `@weerayutteja`,
   },
   plugins: [
@@ -10,7 +11,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/posts`,
+        path: `${__dirname}/posts`,
       },
     },
     {
@@ -23,10 +24,23 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [{
+        plugins: [
+          {
           resolve: `gatsby-remark-images`,
-          maxWidth: 1200
-        }]
+          options: {
+            maxWidth: 1200
+          }
+        },
+        {
+          resolve: `gatsby-remark-responsive-iframe`,
+          options: {
+            wrapperStyle: 'padding-bottom: 1.0725rem'
+          }
+        },
+        'gatsby-remark-prismjs',
+        'gatsby-remark-copy-linked-files',
+        'gatsby-remark-smartypants'
+        ]
       }
     },
     `gatsby-transformer-sharp`,

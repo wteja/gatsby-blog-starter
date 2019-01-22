@@ -6,8 +6,13 @@
     margin: 20px 0;
 }
 
+.posts-list .featured-image,
+.posts-list .featured-image img {
+    width: 100%;
+}
+
 .posts-list .post-title {
-    margin: 0 0 20px;
+    margin: 30px 0;
     font-size: 2em;
     font-weight: 500;
 }

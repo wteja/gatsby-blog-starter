@@ -10,7 +10,9 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-      <PostsList posts={posts} />
+      <div className="container">
+        <PostsList posts={posts} />
+      </div>
     </Layout>
   );
 }
@@ -27,7 +29,11 @@ export const query = graphql`
           frontmatter {
             title
             path
+            author
             date(formatString: "DD MMMM, YYYY")
+            featuredImage {
+                publicURL
+            }
           }
           excerpt
         }

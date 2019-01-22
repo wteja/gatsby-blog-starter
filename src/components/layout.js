@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 
+import 'bootstrap/dist/css/bootstrap.css'
+
 import Header from './header'
-import './layout.css'
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -22,16 +23,13 @@ const Layout = ({ children }) => (
         <div
           style={{
             margin: `0 auto`,
-            maxWidth: 960,
-            padding: `0px 1.0875rem 1.45rem`,
+            padding: `0px 0 1.45rem`,
             paddingTop: 0,
           }}
         >
           {children}
-          <footer style={{
-            margin: `8rem 0 0`
-          }}>
-            © {new Date().getFullYear()}, WTEJA.COM
+          <footer id="site-footer">
+            © {new Date().getFullYear()}, {data.site.siteMetadata.title}
           </footer>
         </div>
       </>

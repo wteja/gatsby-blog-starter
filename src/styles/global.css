@@ -4,3 +4,8 @@ body {
     font-family: Sarabun, Arial, Helvetica, sans-serif;
     font-size: 1em;
 }
+
+#site-footer {
+    margin: 8em 0 0;
+    text-align: center;
+}

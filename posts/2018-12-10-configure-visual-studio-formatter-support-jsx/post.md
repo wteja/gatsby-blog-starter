@@ -1,10 +1,10 @@
 ---
 title: "How to Configure Visual Studio Code’s Formatter Supports JSX?"
+author: "Weerayut Teja"
 date: "2018-01-15"
 path: "/how-to-make-visual-studio-codes-formatter-supports-jsx"
+featuredImage: "./featured.png"
 ---
-
-![How to Configure Visual Studio Code’s Formatter Supports JSX?](featured.png)
 
 Are you annoyed with Visual Studio Code’s formatter when working with JSX?
 
@@ -50,11 +50,14 @@ In the left panel it will be default user settings, which is usually empty, and 
 
 Your exists settings might be different, but we just add a new files.associations settings to let all JavaScript files support **“javascriptreact”** language mode by default. So you just adding these property and value:
 
-```javascript
+```javaScript
+<script>
+let x = 2;
 {
      "files.associations": { "**.js": "javascriptreact" },
      …
 }
+</script>
 ```
 
 This make our life easier! I hope this guide will be helpful to you guys. Happy coding!
