@@ -1,33 +1,34 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "gatsby-blog-starter",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A simple blog starter kit to get up and developing quickly with Gatsby",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Weerayut Teja <teja.weerayut@gmail.com>",
   "dependencies": {
-    "bootstrap": "4.2.1",
+    "bootstrap": "^4.2.1",
     "gatsby": "^2.0.91",
     "gatsby-image": "^2.0.26",
     "gatsby-plugin-manifest": "^2.0.9",
     "gatsby-plugin-offline": "^2.0.16",
     "gatsby-plugin-react-helmet": "^3.0.2",
     "gatsby-plugin-sharp": "^2.0.14",
-    "gatsby-remark-copy-linked-files": "2.0.8",
-    "gatsby-remark-images": "3.0.1",
-    "gatsby-remark-prismjs": "3.2.0",
-    "gatsby-remark-responsive-iframe": "2.0.8",
-    "gatsby-remark-smartypants": "2.0.7",
+    "gatsby-remark-copy-linked-files": "^2.0.8",
+    "gatsby-remark-images": "^3.0.1",
+    "gatsby-remark-prismjs": "^3.2.0",
+    "gatsby-remark-responsive-iframe": "^2.0.8",
+    "gatsby-remark-smartypants": "^2.0.7",
     "gatsby-source-filesystem": "^2.0.8",
     "gatsby-transformer-remark": "2.2.0",
     "gatsby-transformer-sharp": "^2.1.8",
-    "prismjs": "1.15.0",
+    "prismjs": "^1.15.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-helmet": "^5.2.0"
   },
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "blog"
   ],
   "license": "MIT",
   "scripts": {
@@ -42,9 +43,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/wteja/gatsby-blog-starter"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/wteja/gatsby-blog-starter/issues"
   }
 }
