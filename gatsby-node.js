@@ -9,7 +9,7 @@ const path = require('path');
 
 exports.createPages = ({ actions, graphql }) => {
     const { createPage } = actions;
-    const postTemplate = path.resolve(`src/components/single-post.js`);
+    const postTemplate = path.resolve(`src/templates/single-post.js`);
 
     return graphql(`
         query {
