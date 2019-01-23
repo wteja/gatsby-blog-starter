@@ -47,6 +47,7 @@ exports.createPages = ({ actions, graphql }) => {
                     component: blogListTemplate,
                     context: {
                         currentPage,
+                        totalPages,
                         limit: postsPerPage,
                         skip: postsPerPage * i
                     }
