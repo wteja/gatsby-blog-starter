@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import classNames from 'classnames';
 
-import './posts-paging.css';
+import './posts-pager.css';
 
-export class PostsPaging extends Component {
+export class PostsPager extends Component {
     static defaultProps = {
         currentPage: 1,
         postsPerPage: 5,
@@ -42,7 +42,7 @@ export class PostsPaging extends Component {
         const pages = Array.from(Array(totalPages).keys()).map(pageIndex => pageIndex + 1);
 
         return (
-            <div className="posts-paging">
+            <div className="posts-pager">
                 <ul className="pagination">
                     {pages.map(page => <li className={classNames('page-item', { 'active': currentPage === page })}><Link to={`/blog/${page}`} className="page-link">{page}</Link></li>)}
                 </ul>
@@ -51,4 +51,4 @@ export class PostsPaging extends Component {
     }
 }
 
-export default PostsPaging;
+export default PostsPager;
