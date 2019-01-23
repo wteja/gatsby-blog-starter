@@ -13,6 +13,7 @@ const Layout = ({ children }) => (
         site {
           siteMetadata {
             title
+            domain
           }
         }
       }
@@ -29,7 +30,7 @@ const Layout = ({ children }) => (
         >
           {children}
           <footer id="site-footer">
-            © {new Date().getFullYear()}, {data.site.siteMetadata.title}
+            © {new Date().getFullYear()}, {data.site.siteMetadata.domain}
           </footer>
         </div>
       </>

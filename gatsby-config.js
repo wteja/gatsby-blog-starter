@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Weerayut Teja`,
     description: `Fullstack Developer, Invester and Father.`,
-    siteDomain: "WTEJA.COM",
+    domain: "WTEJA.COM",
     author: `@weerayutteja`,
     postsPerPage: 3,
     disqus: {
