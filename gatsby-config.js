@@ -4,7 +4,7 @@ module.exports = {
     description: `Fullstack Developer, Invester and Father.`,
     siteDomain: "WTEJA.COM",
     author: `@weerayutteja`,
-    postsPerPage: 5
+    postsPerPage: 3
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
