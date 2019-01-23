@@ -9,10 +9,16 @@ const path = require('path');
 
 exports.createPages = ({ actions, graphql }) => {
     const { createPage } = actions;
-    const postTemplate = path.resolve(`src/templates/single-post.js`);
+    const blogListTemplate = path.resolve(`src/templates/blog-list.js`);
+    const singlePostTemplate = path.resolve(`src/templates/single-post.js`);
 
     return graphql(`
         query {
+            site {
+                siteMetadata {
+                    postsPerPage
+                }
+            }
             allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date]}) {
                 edges {
                     node {
@@ -27,10 +33,32 @@ exports.createPages = ({ actions, graphql }) => {
             if (result.errors)
                 return Promise.reject(result.errors);
 
-            result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+            const { allMarkdownRemark, site } = result.data;
+
+            const posts = allMarkdownRemark.edges;
+
+            // Create Posts List Pages.
+            const postsPerPage = site.siteMetadata.postsPerPage;
+            const totalPages = Math.ceil(posts.length / postsPerPage);
+            Array.from({ length: totalPages }).forEach((_, i) => {
+                const currentPage = i + 1;
+                createPage({
+                    path: currentPage === 1 ? '/blog' : `/blog/${i + 1}`,
+                    component: blogListTemplate,
+                    context: {
+                        currentPage,
+                        limit: postsPerPage,
+                        skip: postsPerPage * i
+                    }
+                })
+            });
+
+
+            // Create Post Pages.
+            posts.forEach(({ node }) => {
                 createPage({
                     path: node.frontmatter.path,
-                    component: postTemplate
+                    component: singlePostTemplate
                 });
             });
         });

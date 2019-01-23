@@ -6,11 +6,6 @@ import classNames from 'classnames';
 import './posts-pager.css';
 
 export class PostsPager extends Component {
-    static defaultProps = {
-        currentPage: 1,
-        postsPerPage: 5,
-        total: 0
-    };
 
     static propTypes = {
         currentPage: PropTypes.number,
@@ -26,25 +21,15 @@ export class PostsPager extends Component {
         };
     }
 
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.current !== prevState.current) {
-            return { current: nextProps.current };
-        } else {
-            return null;
-        }
-    }
-
     render() {
-        const { total, postsPerPage } = this.props;
-        const { currentPage } = this.state;
+        const { total, postsPerPage, currentPage } = this.props;
         const totalPages = Math.ceil(total / postsPerPage);
         const pages = Array.from(Array(totalPages).keys()).map(pageIndex => pageIndex + 1);
 
         return (
             <div className="posts-pager">
                 <ul className="pagination">
-                    {pages.map(page => <li className={classNames('page-item', { 'active': currentPage === page })}><Link to={`/blog/${page}`} className="page-link">{page}</Link></li>)}
+                    {pages.map(page => <li key={page} className={classNames('page-item', { 'active': currentPage === page })}><Link to={page > 1 ? `/blog/${page}` : '/blog'} className="page-link">{page}</Link></li>)}
                 </ul>
             </div>
         );
