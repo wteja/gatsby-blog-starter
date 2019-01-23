@@ -6,7 +6,7 @@ import SEO from '../components/seo';
 import PostsList from '../components/posts-list';
 import PostsPager from '../components/posts-pager';
 
-const BlogList = ({ data, pageContext }) => {
+const BlogListTemplate = ({ data, pageContext }) => {
     const posts = data.allMarkdownRemark.edges.map(edge => edge.node);
     return (
         <Layout>
@@ -19,7 +19,7 @@ const BlogList = ({ data, pageContext }) => {
     );
 }
 
-export default BlogList;
+export default BlogListTemplate;
 
 export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
