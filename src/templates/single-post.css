@@ -30,3 +30,7 @@
 .single-post .post-content p {
     margin-bottom: 1.5rem;
 }
+
+.single-post .comments-list {
+    margin: 100px auto 0;
+}

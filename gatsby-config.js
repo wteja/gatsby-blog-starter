@@ -4,7 +4,10 @@ module.exports = {
     description: `Fullstack Developer, Invester and Father.`,
     siteDomain: "WTEJA.COM",
     author: `@weerayutteja`,
-    postsPerPage: 3
+    postsPerPage: 3,
+    disqus: {
+      shortname: 'wteja'
+    }
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

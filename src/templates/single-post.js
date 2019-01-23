@@ -1,10 +1,12 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
+import Disqus from 'disqus-react';
 import './single-post.css';
 
-const SinglePostTemplate = ({ data }) => {
-    const { markdownRemark } = data;
+const SinglePostTemplate = (props) => {
+    const { data, location } = props;
+    const { site, markdownRemark } = data;
     const { id, html, frontmatter } = markdownRemark;
     
     let postMeta = "";
@@ -15,6 +17,8 @@ const SinglePostTemplate = ({ data }) => {
     } else if(frontmatter.date) {
         postMeta = frontmatter.date;
     }
+
+    const disqusShortname = site.siteMetadata.disqus && site.siteMetadata.disqus.shortname ? site.siteMetadata.disqus.shortname : null;
 
     return (
         <Layout>
@@ -29,6 +33,16 @@ const SinglePostTemplate = ({ data }) => {
                         <div className="post-content" dangerouslySetInnerHTML={{ __html: html }}></div>
                     </div>
                 </article>
+
+                {disqusShortname ? 
+                (
+                    <div className="comments-list">
+                        <div className="container">
+                            <Disqus.DiscussionEmbed shortname={disqusShortname} config={{ url: location.href, identifier: id, title: frontmatter.title}} />
+                        </div>
+                    </div>
+                ) : null}
+
             </div>
         </Layout>
     );
@@ -38,6 +52,13 @@ export default SinglePostTemplate;
 
 export const query = graphql`
     query($path: String!) {
+        site {
+            siteMetadata {
+                disqus {
+                    shortname
+                }
+            }
+        }
         markdownRemark(frontmatter: { path: { eq: $path } }) {
             id
             html
