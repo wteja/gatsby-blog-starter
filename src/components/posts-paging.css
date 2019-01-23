@@ -1,0 +1,8 @@
+.posts-paging {
+    margin: 100px 0 0;
+}
+
+.posts-paging .pagination {
+    justify-content: center;
+    align-items: center;
+}
