@@ -8,9 +8,10 @@
 const path = require('path');
 
 exports.createPages = ({ actions, graphql }) => {
-    const { createPage } = actions;
+    const { createPage, createRedirect } = actions;
     const blogListTemplate = path.resolve(`src/templates/blog-list.js`);
     const singlePostTemplate = path.resolve(`src/templates/single-post.js`);
+    const linkRedirectTemplate = path.resolve(`src/templates/link-redirect.js`);
 
     return graphql(`
         query {
@@ -28,14 +29,23 @@ exports.createPages = ({ actions, graphql }) => {
                     }
                 }
             }
+            allLinksJson {
+              edges {
+                node {
+                  path
+                  url
+                }
+              }
+            }
         }
     `).then(result => {
             if (result.errors)
                 return Promise.reject(result.errors);
 
-            const { allMarkdownRemark, site } = result.data;
+            const { allMarkdownRemark, allLinksJson, site } = result.data;
 
             const posts = allMarkdownRemark.edges;
+            const links = allLinksJson.edges;
 
             // Create Posts List Pages.
             const postsPerPage = site.siteMetadata.postsPerPage;
@@ -60,6 +70,16 @@ exports.createPages = ({ actions, graphql }) => {
                 createPage({
                     path: node.frontmatter.path,
                     component: singlePostTemplate
+                });
+            });
+
+            links.forEach(({ node }) => {
+                createPage({
+                    path: node.path,
+                    component: linkRedirectTemplate,
+                    context: {
+                        url: node.url
+                    }
                 });
             });
         });
