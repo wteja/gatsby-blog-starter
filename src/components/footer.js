@@ -6,10 +6,10 @@ const Footer = ({ domain, menu }) => (
     <footer id="site-footer">
         
         {menu ? (
-          <nav id="footer-menu" className="menu">
-            <ul className="menu-list">
-              {menu.items.map((item, index) => (<li key={index} className="menu-item"><Link to={item.path}>{item.title}</Link></li>))}
-            </ul>
+          <nav id="footer-menu" className="navbar navbar-light navbar-expand-lg px-0">
+          <ul className="navbar-nav mx-auto text-center">
+          {menu.items.map((item, index) => (<li key={index} className="nav-item"><Link to={item.path} className="nav-link">{item.title}</Link></li>))}
+          </ul>
           </nav>
         ) : null}
 

@@ -1,29 +1,21 @@
+#site-header {
+    background-color: #FFF;
+    color: #000;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.16);
+    margin: 0 auto;
+    padding: 1.8rem 1.0875rem;
+}
+
 #site-header a {
     color: #000;
 }
 
-#site-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#main-menu ul {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-#main-menu li+li {
-    margin-left: 50px;
-}
-
-#main-menu a {
+#main-menu .nav-item a {
     font-weight: normal;
     font-size: 1.25em;
     text-decoration: none;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 #site-footer {
@@ -39,19 +31,9 @@
     margin-bottom: 30px;
 }
 
-#footer-menu ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-#footer-menu li+li {
-    margin-left: 50px;
-}
-
-#footer-menu a {
+#footer-menu .nav-item a {
     font-weight: normal;
     text-decoration: none;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
