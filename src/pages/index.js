@@ -28,7 +28,7 @@ export const query = graphql`
         postsPerPage
       }
     }
-    allMarkdownRemark(limit: 5, sort: { fields: [frontmatter___date], order: DESC}) {
+    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/posts/"}}, limit: 5, sort: { fields: [frontmatter___date], order: DESC}) {
       totalCount
       edges {
         node {

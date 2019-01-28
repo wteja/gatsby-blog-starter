@@ -1,0 +1,36 @@
+.single-page {
+    margin: 0 0 30px;
+}
+
+.single-page .featured-image {
+    width: 100%;
+}
+
+.single-page .featured-image img {
+    width: 100%;
+}
+
+.single-page .page-title {
+    margin: 40px 0;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.single-page .page-title a {
+    color: #000;
+    text-decoration: none;
+}
+
+.single-page .page-meta {
+    margin: 0 0 30px;
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+.single-page .page-content p {
+    margin-bottom: 1.5rem;
+}
+
+.single-page .comments-list {
+    margin: 100px auto 0;
+}

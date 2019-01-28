@@ -28,7 +28,7 @@ export const blogListQuery = graphql`
         postsPerPage
       }
     }
-    allMarkdownRemark(skip: $skip, limit: $limit, sort: { fields: [frontmatter___date], order: DESC}) {
+    allMarkdownRemark(skip: $skip, limit: $limit, filter: {fileAbsolutePath: {regex: "//content/posts/"}}, sort: { fields: [frontmatter___date], order: DESC}) {
       totalCount
       edges {
         node {
