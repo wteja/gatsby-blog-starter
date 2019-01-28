@@ -7,10 +7,11 @@ import PostsList from '../components/posts-list';
 import PostsPager from '../components/posts-pager';
 
 const IndexPage = ({ data }) => {
-  const posts = data.allMarkdownRemark.edges.map(edge => edge.node);
+  const { allMarkdownRemark } = data;
+  const posts = allMarkdownRemark.edges.map(edge => edge.node);
   return (
     <Layout>
-      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <SEO title="Home" />
       <div className="container">
         <PostsList posts={posts} />
         <PostsPager postsPerPage={data.site.siteMetadata.postsPerPage} total={data.allMarkdownRemark.totalCount} />

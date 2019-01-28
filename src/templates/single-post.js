@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import SEO from '../components/seo';
 import Layout from '../components/layout';
 import Disqus from 'disqus-react';
 import './single-post.css';
@@ -7,14 +8,14 @@ import './single-post.css';
 const SinglePostTemplate = (props) => {
     const { data, location } = props;
     const { site, markdownRemark } = data;
-    const { id, html, frontmatter } = markdownRemark;
-    
+    const { id, html, excerpt, frontmatter } = markdownRemark;
+
     let postMeta = "";
-    if(frontmatter.date && frontmatter.date) {
+    if (frontmatter.date && frontmatter.date) {
         postMeta = `${frontmatter.author} - ${frontmatter.date}`;
-    } else if(frontmatter.author) {
+    } else if (frontmatter.author) {
         postMeta = frontmatter.author;
-    } else if(frontmatter.date) {
+    } else if (frontmatter.date) {
         postMeta = frontmatter.date;
     }
 
@@ -22,6 +23,7 @@ const SinglePostTemplate = (props) => {
 
     return (
         <Layout>
+            <SEO title={frontmatter.title} description={excerpt} />
             <div className="single-post">
                 <article className={`post post-${id}`}>
                     {frontmatter.featuredImage ? <div className="featured-image">
@@ -34,14 +36,14 @@ const SinglePostTemplate = (props) => {
                     </div>
                 </article>
 
-                {disqusShortname ? 
-                (
-                    <div className="comments-list">
-                        <div className="container">
-                            <Disqus.DiscussionEmbed shortname={disqusShortname} config={{ url: location.href, identifier: id, title: frontmatter.title}} />
+                {disqusShortname ?
+                    (
+                        <div className="comments-list">
+                            <div className="container">
+                                <Disqus.DiscussionEmbed shortname={disqusShortname} config={{ url: location.href, identifier: id, title: frontmatter.title }} />
+                            </div>
                         </div>
-                    </div>
-                ) : null}
+                    ) : null}
 
             </div>
         </Layout>

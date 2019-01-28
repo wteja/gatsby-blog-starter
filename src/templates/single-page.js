@@ -1,15 +1,17 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import SEO from '../components/seo';
 import Layout from '../components/layout';
 import './single-page.css';
 
 const SinglePageTemplate = (props) => {
     const { data } = props;
     const { markdownRemark } = data;
-    const { id, html, frontmatter } = markdownRemark;
+    const { id, html, excerpt, frontmatter } = markdownRemark;
 
     return (
         <Layout>
+            <SEO title={frontmatter.title} description={excerpt} />
             <div className="single-page">
                 <article className={`page page-${id}`}>
                     {frontmatter.featuredImage ? <div className="featured-image">
@@ -33,6 +35,7 @@ export const query = graphql`
         markdownRemark(frontmatter: { path: { eq: $path } }) {
             id
             html
+            excerpt
             frontmatter {
                 title
                 path

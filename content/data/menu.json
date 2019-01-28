@@ -1,0 +1,41 @@
+[{
+        "name": "main-menu",
+        "title": "Main Menu",
+        "items": [
+            {
+                "title": "Home",
+                "path": "/"
+            },
+            {
+                "title": "Blog",
+                "path": "/blog"
+            },
+            {
+                "title": "About",
+                "path": "/about"
+            },
+            {
+                "title": "Contact",
+                "path": "/contact"
+            }
+        ]
+    },
+    {
+        "name": "footer-menu",
+        "title": "Footer Menu",
+        "items": [
+            {
+                "title": "Privacy Policy",
+                "path": "/privacy"
+            },
+            {
+                "title": "Terms and Conditions",
+                "path": "/terms"
+            },
+            {
+                "title": "Disclaimer",
+                "path": "/disclaimer"
+            }
+        ]
+    }
+]
