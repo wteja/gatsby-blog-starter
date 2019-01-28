@@ -21,7 +21,7 @@ exports.createPages = ({ actions, graphql }) => {
             postsPerPage
           }
         }
-        postsMarkdownRemark: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/posts/"}}, sort: {order: DESC, fields: [frontmatter___date]}) {
+        postsMarkdownRemark: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/posts/"}}) {
           edges {
             node {
               frontmatter {
@@ -30,7 +30,7 @@ exports.createPages = ({ actions, graphql }) => {
             }
           }
         }
-        pagesMarkdownRemark: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/pages/"}}, sort: {order: DESC, fields: [frontmatter___date]}) {
+        pagesMarkdownRemark: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/pages/"}}) {
           edges {
             node {
               frontmatter {
