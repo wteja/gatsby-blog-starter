@@ -7,7 +7,7 @@ const Header = ({ siteTitle, menu }) => (
       <div className="container">
 
           <nav id="main-menu" className="navbar navbar-expand-lg navbar-light justify-content-between px-0">
-            <h1 className="navbar-brand" style={{ margin: 0 }}>
+            <h1 className="logo navbar-brand" style={{ margin: 0 }}>
               <Link
                 to="/"
                 style={{

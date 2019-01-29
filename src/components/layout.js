@@ -36,7 +36,7 @@ const Layout = ({ children }) => (
 
       let mainMenu = null;
       let footerMenu = null;
-      if(allMenuJson && allMenuJson.edges && allMenuJson.edges.length > 0) {
+      if (allMenuJson && allMenuJson.edges && allMenuJson.edges.length > 0) {
         const menuNodes = allMenuJson.edges.map(edge => edge.node);
         mainMenu = menuNodes.find(node => node.name === "main-menu");
         footerMenu = menuNodes.find(node => node.name === "footer-menu");
@@ -52,7 +52,9 @@ const Layout = ({ children }) => (
               paddingTop: 0,
             }}
           >
-            {children}
+            <main id="site-content">
+              {children}
+            </main>
             <Footer domain={domain} menu={footerMenu} />
           </div>
         </>
