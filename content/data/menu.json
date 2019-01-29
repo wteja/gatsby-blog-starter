@@ -3,10 +3,6 @@
         "title": "Main Menu",
         "items": [
             {
-                "title": "Home",
-                "path": "/"
-            },
-            {
                 "title": "Blog",
                 "path": "/blog"
             },
