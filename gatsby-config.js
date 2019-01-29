@@ -1,10 +1,13 @@
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
 module.exports = {
   siteMetadata: {
     title: `Weerayut Teja`,
     description: `Fullstack Developer, Invester and Father.`,
     domain: "WTEJA.COM",
     author: `@weerayutteja`,
-    postsPerPage: 3,
     disqus: {
       shortname: 'wteja'
     }
@@ -85,6 +88,6 @@ module.exports = {
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
+    'gatsby-plugin-offline',
   ],
 }

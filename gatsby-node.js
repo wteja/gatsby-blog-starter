@@ -7,20 +7,17 @@
 // You can delete this file if you're not using it
 const path = require('path');
 
-exports.createPages = ({ actions, graphql }) => {
-    const { createPage } = actions;
-    const blogListTemplate = path.resolve(`src/templates/blog-list.js`);
-    const singlePostTemplate = path.resolve(`src/templates/single-post.js`);
-    const singlePageTemplate = path.resolve(`src/templates/single-page.js`);
-    const linkRedirectTemplate = path.resolve(`src/templates/link-redirect.js`);
+const postsPerPage = process.env.POSTS_PER_PAGE || 5;
 
-    return graphql(`
+exports.createPages = ({ actions, graphql }) => {
+  const { createPage } = actions;
+  const blogListTemplate = path.resolve(`src/templates/blog-list.js`);
+  const singlePostTemplate = path.resolve(`src/templates/single-post.js`);
+  const singlePageTemplate = path.resolve(`src/templates/single-page.js`);
+  const linkRedirectTemplate = path.resolve(`src/templates/link-redirect.js`);
+
+  return graphql(`
       query {
-        site {
-          siteMetadata {
-            postsPerPage
-          }
-        }
         postsMarkdownRemark: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/posts/"}}) {
           edges {
             node {
@@ -49,62 +46,78 @@ exports.createPages = ({ actions, graphql }) => {
         }
       }
     `).then(result => {
-            if (result.errors)
-                return Promise.reject(result.errors);
+    if (result.errors)
+      return Promise.reject(result.errors);
 
-            const { postsMarkdownRemark, pagesMarkdownRemark, allLinksJson, site } = result.data;
+    const { postsMarkdownRemark, pagesMarkdownRemark, allLinksJson } = result.data;
 
-            const posts = postsMarkdownRemark && postsMarkdownRemark.edges ? postsMarkdownRemark.edges : [];
-            const pages = pagesMarkdownRemark && pagesMarkdownRemark.edges ? pagesMarkdownRemark.edges : [];
-            const links = allLinksJson.edges;
+    const posts = postsMarkdownRemark && postsMarkdownRemark.edges ? postsMarkdownRemark.edges : [];
+    const pages = pagesMarkdownRemark && pagesMarkdownRemark.edges ? pagesMarkdownRemark.edges : [];
+    const links = allLinksJson.edges;
 
-            // Create Posts List Pages.
-            const postsPerPage = site.siteMetadata.postsPerPage;
-            const totalPages = Math.ceil(posts.length / postsPerPage);
-            Array.from({ length: totalPages }).forEach((_, i) => {
-                const currentPage = i + 1;
-                createPage({
-                    path: currentPage === 1 ? '/blog' : `/blog/${i + 1}`,
-                    component: blogListTemplate,
-                    context: {
-                        currentPage,
-                        totalPages,
-                        limit: postsPerPage,
-                        skip: postsPerPage * i
-                    }
-                })
-            });
+    // Create Posts List Pages.
+    const totalPages = Math.ceil(posts.length / postsPerPage);
+    Array.from({ length: totalPages }).forEach((_, i) => {
+      const currentPage = i + 1;
+      createPage({
+        path: currentPage === 1 ? '/blog' : `/blog/${i + 1}`,
+        component: blogListTemplate,
+        context: {
+          currentPage,
+          totalPages,
+          limit: postsPerPage,
+          skip: postsPerPage * i
+        }
+      })
+    });
 
-            // Create pages from post markdown.
-            posts.forEach(({ node }) => {
-                createPage({
-                    path: node.frontmatter.path,
-                    component: singlePostTemplate,
-                    context: {
-                        postType: 'post'
-                    }
-                });
-            });
+    // Create pages from post markdown.
+    posts.forEach(({ node }) => {
+      createPage({
+        path: node.frontmatter.path,
+        component: singlePostTemplate,
+        context: {
+          page: node.frontmatter.path,
+          postType: 'post'
+        }
+      });
+    });
 
-            // Create pages from page markdown.
-            pages.forEach(({ node }) => {
-                createPage({
-                    path: node.frontmatter.path,
-                    component: singlePageTemplate,
-                    context: {
-                        postType: 'page'
-                    }
-                });
-            });
+    // Create pages from page markdown.
+    pages.forEach(({ node }) => {
+      createPage({
+        path: node.frontmatter.path,
+        component: singlePageTemplate,
+        context: {
+          page: node.frontmatter.path,
+          postType: 'page'
+        }
+      });
+    });
 
-            links.forEach(({ node }) => {
-                createPage({
-                    path: node.path,
-                    component: linkRedirectTemplate,
-                    context: {
-                        url: node.url
-                    }
-                });
-            });
-        });
+    links.forEach(({ node }) => {
+      createPage({
+        path: node.path,
+        component: linkRedirectTemplate,
+        context: {
+          url: node.url
+        }
+      });
+    });
+  });
 };
+
+exports.onCreatePage = ({ page, actions, graphql }) => {
+  const { createPage, deletePage } = actions;
+
+  if (page.path === '/') {
+    deletePage(page);
+
+    createPage({
+      ...page,
+      context: {
+        limit: postsPerPage
+      }
+    });
+  }
+}

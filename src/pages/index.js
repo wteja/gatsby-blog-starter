@@ -6,7 +6,7 @@ import SEO from '../components/seo';
 import PostsList from '../components/posts-list';
 import PostsPager from '../components/posts-pager';
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, pageContext }) => {
   const { allMarkdownRemark } = data;
   const posts = allMarkdownRemark.edges.map(edge => edge.node);
   return (
@@ -14,7 +14,7 @@ const IndexPage = ({ data }) => {
       <SEO title="Home" />
       <div className="container">
         <PostsList posts={posts} />
-        <PostsPager postsPerPage={data.site.siteMetadata.postsPerPage} total={data.allMarkdownRemark.totalCount} />
+        <PostsPager total={allMarkdownRemark.totalCount} />
       </div>
     </Layout>
   );
@@ -23,13 +23,8 @@ const IndexPage = ({ data }) => {
 export default IndexPage
 
 export const query = graphql`
-  query {
-    site {
-      siteMetadata {
-        postsPerPage
-      }
-    }
-    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/posts/"}}, limit: 5, sort: { fields: [frontmatter___date], order: DESC}) {
+  query($limit: Int!) {
+    allMarkdownRemark(filter: {fileAbsolutePath: {regex: "//content/posts/"}}, limit: $limit, sort: { fields: [frontmatter___date], order: DESC}) {
       totalCount
       edges {
         node {

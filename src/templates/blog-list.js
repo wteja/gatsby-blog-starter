@@ -13,7 +13,7 @@ const BlogListTemplate = ({ data, pageContext }) => {
             <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
             <div className="container">
                 <PostsList posts={posts} />
-                <PostsPager currentPage={pageContext.currentPage} postsPerPage={data.site.siteMetadata.postsPerPage} total={data.allMarkdownRemark.totalCount} />
+                <PostsPager currentPage={pageContext.currentPage} postsPerPage={pageContext.limit} total={data.allMarkdownRemark.totalCount} />
             </div>
         </Layout>
     );
@@ -23,11 +23,6 @@ export default BlogListTemplate;
 
 export const blogListQuery = graphql`
   query blogListQuery($skip: Int!, $limit: Int!) {
-    site {
-      siteMetadata {
-        postsPerPage
-      }
-    }
     allMarkdownRemark(skip: $skip, limit: $limit, filter: {fileAbsolutePath: {regex: "//content/posts/"}}, sort: { fields: [frontmatter___date], order: DESC}) {
       totalCount
       edges {

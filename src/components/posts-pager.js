@@ -14,19 +14,18 @@ export class PostsPager extends Component {
         total: PropTypes.number
     };
 
-    constructor(props, context) {
-        super(props, context);
-
-        this.state = {
-            currentPage: 1
-        };
-    }
+    static defaultProps = {
+        currentPage: 1,
+        total: 0,
+        postsPerPage: process.env.POSTS_PER_PAGE ? Number(process.env.POSTS_PER_PAGE) : 5,
+        type: 'default'
+    };
 
     render() {
         const { total, postsPerPage, currentPage, type } = this.props;
         const totalPages = Math.ceil(total / postsPerPage);
         const pages = Array.from(Array(totalPages).keys()).map(pageIndex => pageIndex + 1);
-
+        
         let pager = null;
 
         if (type === "number") {
