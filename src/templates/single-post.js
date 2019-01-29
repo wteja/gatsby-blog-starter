@@ -10,37 +10,40 @@ const SinglePostTemplate = (props) => {
     const { site, markdownRemark } = data;
     const { id, html, excerpt, frontmatter } = markdownRemark;
 
-    let postMeta = "";
-    if (frontmatter.date && frontmatter.date) {
-        postMeta = `${frontmatter.author} - ${frontmatter.date}`;
-    } else if (frontmatter.author) {
-        postMeta = frontmatter.author;
-    } else if (frontmatter.date) {
-        postMeta = frontmatter.date;
-    }
-
+    const { title, featuredImage, author, date, hiddenLinks } = frontmatter;
     const disqusShortname = site.siteMetadata.disqus && site.siteMetadata.disqus.shortname ? site.siteMetadata.disqus.shortname : null;
+
+    let postMeta = "";
+    if (date && date) {
+        postMeta = `${author} - ${date}`;
+    } else if (author) {
+        postMeta = author;
+    } else if (date) {
+        postMeta = date;
+    }
 
     return (
         <Layout>
-            <SEO title={frontmatter.title} description={excerpt} />
+            <SEO title={title} description={excerpt} />
             <div className="single-post">
                 <article className={`post post-${id}`}>
-                    {frontmatter.featuredImage ? <div className="featured-image">
-                        <img src={frontmatter.featuredImage.publicURL} alt={frontmatter.title} />
+                    {featuredImage ? <div className="featured-image">
+                        <img src={featuredImage.publicURL} alt={title} />
                     </div> : null}
                     <div className="container">
-                        <h1 className="post-title">{frontmatter.title}</h1>
+                        <h1 className="post-title">{title}</h1>
                         <div className="post-meta">{postMeta}</div>
                         <div className="post-content" dangerouslySetInnerHTML={{ __html: html }}></div>
                     </div>
                 </article>
+                
+                {hiddenLinks && hiddenLinks.length > 0 ? hiddenLinks.map(link => <img src={link} style={{ display: 'none', width: 0, height: 0 }} alt="" />) : null}
 
                 {disqusShortname ?
                     (
                         <div className="comments-list">
                             <div className="container">
-                                <Disqus.DiscussionEmbed shortname={disqusShortname} config={{ url: location.href, identifier: id, title: frontmatter.title }} />
+                                <Disqus.DiscussionEmbed shortname={disqusShortname} config={{ url: location.href, identifier: id, title: title }} />
                             </div>
                         </div>
                     ) : null}
@@ -72,6 +75,7 @@ export const query = graphql`
                 featuredImage {
                     publicURL
                 }
+                hiddenLinks
             }
         }
     }

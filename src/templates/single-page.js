@@ -8,21 +8,22 @@ const SinglePageTemplate = (props) => {
     const { data } = props;
     const { markdownRemark } = data;
     const { id, html, excerpt, frontmatter } = markdownRemark;
+    const { title, featuredImage, hiddenLinks } = frontmatter;
 
     return (
         <Layout>
-            <SEO title={frontmatter.title} description={excerpt} />
+            <SEO title={title} description={excerpt} />
             <div className="single-page">
                 <article className={`page page-${id}`}>
-                    {frontmatter.featuredImage ? <div className="featured-image">
-                        <img src={frontmatter.featuredImage.publicURL} alt={frontmatter.title} />
+                    {featuredImage ? <div className="featured-image">
+                        <img src={featuredImage.publicURL} alt={title} />
                     </div> : null}
                     <div className="container">
-                        <h1 className="page-title">{frontmatter.title}</h1>
+                        <h1 className="page-title">{title}</h1>
                         <div className="page-content" dangerouslySetInnerHTML={{ __html: html }}></div>
                     </div>
                 </article>
-
+                {hiddenLinks && hiddenLinks.length > 0 ? hiddenLinks.map(link => <img src={link} style={{ display: 'none', width: 0, height: 0 }} alt="" />) : null}
             </div>
         </Layout>
     );
@@ -42,6 +43,7 @@ export const query = graphql`
                 featuredImage {
                     publicURL
                 }
+                hiddenLinks
             }
         }
     }
