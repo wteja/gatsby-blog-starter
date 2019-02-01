@@ -8,12 +8,14 @@ import PostsPager from '../components/posts-pager';
 
 const BlogListTemplate = ({ data, pageContext }) => {
     const posts = data.allMarkdownRemark.edges.map(edge => edge.node);
+    const { pageTitle, currentPage, limit } = pageContext;
     return (
         <Layout>
             <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
             <div className="container">
+                {pageTitle ? <h1 className="page-title">{pageTitle}</h1> : null}
                 <PostsList posts={posts} />
-                <PostsPager currentPage={pageContext.currentPage} postsPerPage={pageContext.limit} total={data.allMarkdownRemark.totalCount} />
+                <PostsPager currentPage={currentPage} postsPerPage={limit} total={data.allMarkdownRemark.totalCount} />
             </div>
         </Layout>
     );
