@@ -28,6 +28,11 @@
     font-style: italic;
 }
 
+.posts-list .post-meta a {
+    color: #000;
+    text-decoration: none;
+}
+
 /*= Bootstrap
 ============================*/
 .page-link {

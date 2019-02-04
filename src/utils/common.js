@@ -1,0 +1,1 @@
+exports.getPrettyName = name => name.replace(/\W+/g, '-').toLowerCase();

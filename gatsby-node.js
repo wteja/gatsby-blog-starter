@@ -6,8 +6,10 @@
 
 // You can delete this file if you're not using it
 const path = require('path');
+const moment = require('moment');
+const { getPrettyName } = require('./src/utils/common');
 
-const postsPerPage = process.env.POSTS_PER_PAGE || 5;
+const postsPerPage = Number(process.env.POSTS_PER_PAGE) || 5;
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
@@ -22,6 +24,7 @@ exports.createPages = ({ actions, graphql }) => {
           edges {
             node {
               frontmatter {
+                author
                 date
                 path
               }
@@ -61,17 +64,20 @@ exports.createPages = ({ actions, graphql }) => {
       const years = dates.map(date => date.split('-')[0]).filter((year, index, arr) => arr.indexOf(year) === index);
       const months = dates.map(date => { const dateParts = date.split('-'); return `${dateParts[0]}-${dateParts[1]}`; }).filter((month, index, arr) => arr.indexOf(month) === index);
 
+      const authors = posts.map(({ node }) => node.frontmatter.author).filter((author, index, arr) => !!author && arr.indexOf(author) === index);
+
       // Create Posts List Pages.
       const totalPages = Math.ceil(posts.length / postsPerPage);
+      const firstPageSlug = `/blog`;
+      const nextPageSlug = `/blog/`;
       Array.from({ length: totalPages }).forEach((_, i) => {
         const currentPage = i + 1;
-        const firstPageSlug = `/blog`;
-        const nextPageSlug = `/blog/${i + 1}`;
-        const path = currentPage === 1 ? firstPageSlug : nextPageSlug;
+        const path = currentPage === 1 ? firstPageSlug : `${nextPageSlug}${currentPage}`;
         createPage({
           path,
           component: blogListTemplate,
           context: {
+            title: "Blog",
             currentPage,
             totalPages,
             limit: postsPerPage,
@@ -87,16 +93,16 @@ exports.createPages = ({ actions, graphql }) => {
         const yearRegExp = new RegExp(`${year}-\\d{2}-\\d{2}`);
         const yearPosts = posts.filter(({ node }) => !!node.frontmatter.date && yearRegExp.test(node.frontmatter.date));
         const totalPages = Math.ceil(yearPosts.length / postsPerPage);
+        const firstPageSlug = `/${year}`;
+        const nextPageSlug = `/${year}/page/`;
         Array.from({ length: totalPages }).forEach((_, i) => {
           const currentPage = i + 1;
-          const firstPageSlug = `/${year}`;
-          const nextPageSlug = `/${year}/page/${i + 1}`;
-          const path = currentPage === 1 ? firstPageSlug : nextPageSlug;
+          const path = currentPage === 1 ? firstPageSlug : `${nextPageSlug}${currentPage}`;
           createPage({
             path,
             component: blogListTemplate,
             context: {
-              title: `Posts in ${year}:`,
+              title: `Posts in ${year}`,
               currentPage,
               totalPages,
               limit: postsPerPage,
@@ -113,21 +119,50 @@ exports.createPages = ({ actions, graphql }) => {
         const monthRegExp = new RegExp(`${month}-\\d{2}`);
         const monthPosts = posts.filter(({ node }) => !!node.frontmatter.date && monthRegExp.test(node.frontmatter.date));
         const totalPages = Math.ceil(monthPosts.length / postsPerPage);
+        const monthSlug = month.replace('-', '/');
+        const monthMoment = moment(`${month}-01`);
+        const firstPageSlug = `/${monthSlug}`;
+        const nextPageSlug = `/${monthSlug}/page/`;
         Array.from({ length: totalPages }).forEach((_, i) => {
           const currentPage = i + 1;
-          const monthSlug = month.replace('-', '/');
-          const firstPageSlug = `/${monthSlug}`;
-          const nextPageSlug = `/${monthSlug}/page/${i + 1}`;
-          const path = currentPage === 1 ? firstPageSlug : nextPageSlug;
+          const path = currentPage === 1 ? firstPageSlug : `${nextPageSlug}${currentPage}`;
           createPage({
             path,
             component: blogListTemplate,
             context: {
-              title: `Posts in ${monthSlug}:`,
+              title: `Posts in ${monthMoment.format("MMMM YYYY")}`,
               currentPage,
               totalPages,
               limit: postsPerPage,
-              skip: postsPerPage * i
+              skip: postsPerPage * i,
+              firstPageSlug,
+              nextPageSlug
+            }
+          })
+        });
+      });
+
+      // Create Author's Posts List Pages.
+      authors.forEach(authorName => {
+        const prettyName = getPrettyName(authorName);
+        const authorPosts = posts.filter(({ node }) => !!node.frontmatter.author && node.frontmatter.author === authorName);
+        const totalPages = Math.ceil(authorPosts.length / postsPerPage);
+        const firstPageSlug = `/${prettyName}`;
+        const nextPageSlug = `/${prettyName}/page/`;
+        Array.from({ length: totalPages }).forEach((_, i) => {
+          const currentPage = i + 1;
+          const path = currentPage === 1 ? firstPageSlug : `${nextPageSlug}${currentPage}`;
+          createPage({
+            path,
+            component: blogListTemplate,
+            context: {
+              title: `${authorName}'s Posts`,
+              currentPage,
+              totalPages,
+              limit: postsPerPage,
+              skip: postsPerPage * i,
+              firstPageSlug,
+              nextPageSlug
             }
           })
         });
