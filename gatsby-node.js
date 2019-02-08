@@ -181,6 +181,7 @@ exports.createPages = ({ actions, graphql }) => {
     // Create Tag's Posts List Pages.
     tags.forEach(tagName => {
       const prettyName = getPrettyName(tagName);
+      const tagRegExp = `/${tagName}/i`;
       const tagPosts = posts.filter(({ node }) => !!node.frontmatter.tags && node.frontmatter.tags.indexOf(tagName) > -1);
       const totalPages = Math.ceil(tagPosts.length / postsPerPage);
       const firstPageSlug = `/tag/${prettyName}`;
@@ -193,6 +194,7 @@ exports.createPages = ({ actions, graphql }) => {
           component: archiveTagTemplate,
           context: {
             title: `Tag: ${tagName} Posts`,
+            regex: tagRegExp,
             currentPage,
             totalPages,
             limit: postsPerPage,

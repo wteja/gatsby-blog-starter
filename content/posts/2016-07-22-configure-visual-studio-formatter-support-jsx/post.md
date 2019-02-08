@@ -4,6 +4,7 @@ author: "John Doe"
 date: "2016-07-22"
 path: "/how-to-make-visual-studio-codes-formatter-supports-jsx"
 featuredImage: "./featured.png"
+tags: ["vscode", "beginner"]
 ---
 
 Are you annoyed with Visual Studio Code’s formatter when working with JSX?

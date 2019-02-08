@@ -24,8 +24,8 @@ const ArchiveTagTemplate = ({ data, pageContext }) => {
 export default ArchiveTagTemplate;
 
 export const query = graphql`
-  query($skip: Int!, $limit: Int!) {
-    allMarkdownRemark(skip: $skip, limit: $limit, filter: {fileAbsolutePath: {regex: "//content/posts/"}}, sort: { fields: [frontmatter___date], order: DESC}) {
+  query($skip: Int!, $limit: Int!, $regex: String!) {
+    allMarkdownRemark(skip: $skip, limit: $limit, filter: {fileAbsolutePath: {regex: "//content/posts/"}, frontmatter: {tags: {regex: $regex}}}, sort: { fields: [frontmatter___date], order: DESC}) {
       totalCount
       edges {
         node {
