@@ -44,12 +44,12 @@ const PostsList = ({ posts }) => {
 
 function getArchiveAuthorLink(authorName) {
     const prettyName = getPrettyName(authorName);
-    return <Link to={`/${prettyName}`}>{authorName}</Link>
+    return <Link to={`/author/${prettyName}`}>{authorName}</Link>
 }
 
 function getArchiveDateLink(date) {
     const dateMoment = moment(date);
-    return <Link to={`/${dateMoment.format("YYYY/MM")}`}>{dateMoment.format("DD MMMM, YYYY")}</Link>
+    return <Link to={`/archive/${dateMoment.format("YYYY/MM")}`}>{dateMoment.format("DD MMMM, YYYY")}</Link>
 }
 
 export default PostsList;

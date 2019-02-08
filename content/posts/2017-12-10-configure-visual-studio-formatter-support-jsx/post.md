@@ -1,7 +1,7 @@
 ---
 title: "How to Configure Visual Studio Code’s Formatter Supports JSX?"
 author: "Weerayut Teja"
-date: "2018-01-15"
+date: "2017-12-10"
 path: "/how-to-make-visual-studio-codes-formatter-supports-jsx"
 featuredImage: "./featured.png"
 ---

@@ -1,9 +1,10 @@
 ---
 title: "How to Configure Visual Studio Code’s Formatter Supports JSX?"
 author: "Weerayut Teja"
-date: "2018-01-15"
+date: "2018-12-10"
 path: "/how-to-make-visual-studio-codes-formatter-supports-jsx"
 featuredImage: "./featured.png"
+tags: ["JavaScript", "React", "VSCode"]
 ---
 
 Are you annoyed with Visual Studio Code’s formatter when working with JSX?
