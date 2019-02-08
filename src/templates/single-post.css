@@ -14,6 +14,7 @@
     margin: 40px 0;
     font-size: 2.5em;
     font-weight: 500;
+    line-height: 1.5em;
 }
 
 .single-post .post-title a {
@@ -22,9 +23,25 @@
 }
 
 .single-post .post-meta {
-    margin: 0 0 30px;
+    margin: 0 0 50px;
     font-size: 0.8em;
     font-style: italic;
+}
+
+.single-post .post-meta a {
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+}
+
+.single-post .post-tags .tag-label {
+    font-size: 0.8em;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.single-post .post-tags .tag+.tag {
+    margin-left: 10px;
 }
 
 .single-post .post-content p {
@@ -33,4 +50,8 @@
 
 .single-post .comments-list {
     margin: 100px auto 0;
+}
+
+.single-post .post-tags {
+    margin: 100px 0 50px;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import * as moment from 'moment';
-import { getPrettyName } from '../utils/common';
+import { getArchiveAuthorUrl, getArchiveMonthUrl } from '../utils/common';
 import './posts-list.css';
 
 const PostsList = ({ posts }) => {
@@ -13,7 +13,7 @@ const PostsList = ({ posts }) => {
 
             let postMeta = "";
             if (frontmatter.date && frontmatter.date) {
-                postMeta = <>{getArchiveAuthorLink(frontmatter.author)} - {getArchiveDateLink(frontmatter.date)}</>;
+                postMeta = <>Posted on {getArchiveDateLink(frontmatter.date)}, by {getArchiveAuthorLink(frontmatter.author)}</>;
             } else if (frontmatter.author) {
                 postMeta = getArchiveAuthorLink(frontmatter.author);
             } else if (frontmatter.date) {
@@ -43,13 +43,12 @@ const PostsList = ({ posts }) => {
 }
 
 function getArchiveAuthorLink(authorName) {
-    const prettyName = getPrettyName(authorName);
-    return <Link to={`/author/${prettyName}`}>{authorName}</Link>
+    return <Link to={getArchiveAuthorUrl(authorName)}>{authorName}</Link>
 }
 
 function getArchiveDateLink(date) {
     const dateMoment = moment(date);
-    return <Link to={`/archive/${dateMoment.format("YYYY/MM")}`}>{dateMoment.format("DD MMMM, YYYY")}</Link>
+    return <Link to={getArchiveMonthUrl(date)}>{dateMoment.format("DD MMMM YYYY")}</Link>
 }
 
 export default PostsList;
