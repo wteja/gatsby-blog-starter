@@ -46,6 +46,34 @@ body {
     line-height: 1.5;
 }
 
+#site-content h1 {
+    font-size: 2.5rem;
+}
+
+#site-content h2 {
+    font-size: 2rem;
+}
+
+#site-content h3 {
+    font-size: 1.75rem;
+}
+
+#site-content h4 {
+    font-size: 1.5rem;
+}
+
+#site-content h5 {
+    font-size: 1.25rem;
+}
+
+#site-content h6 {
+    font-size: 1rem;
+}
+
+#site-content p {
+    margin-bottom: 1.5rem;
+}
+
 #site-content ul,
 #site-content ol {
     padding-left: 40px;
