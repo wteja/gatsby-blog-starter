@@ -18,7 +18,8 @@ class ContactForm extends React.Component {
         this.state = {
             wasValidated: false,
             verifiedCaptcha: false,
-            sendSuccess: false
+            showSuccess: false,
+            recaptcha: ''
         };
     }
 
@@ -29,17 +30,36 @@ class ContactForm extends React.Component {
             this.setState({ wasValidated: true });
         }
 
-        this.setState({ sendSuccess: true });
+        const data = {
+            name: this.nameRef.current.value,
+            email: this.emailRef.current.value,
+            subject: this.subjectRef.current.value,
+            message: this.msgRef.current.value,
+            recaptcha: this.state.recaptcha
+        };
+
+        fetch('/.netlify/functions/sendmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(() => {
+            this.setState({ showSuccess: true });
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     onVerifyCaptchaSuccess = response => {
-        this.setState({ verifiedCaptcha: true });
+        this.setState({ verifiedCaptcha: true, recaptcha: response });
     };
 
     render() {
         return (
             <form className={classNames({ 'was-validated': this.state.wasValidated }, 'needs-validation contact-form col-lg-6 mx-auto')} style={{ marginTop: '3rem', marginBottom: '3rem' }} onSubmit={this.onSubmit}>
-                {this.state.sendSuccess ? (
+                {this.state.showSuccess ? (
                     <Alert dismissible variant="success">
                         Your message has been sent to us. Thank you!
                     </Alert>
